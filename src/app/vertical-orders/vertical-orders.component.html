@@ -1,0 +1,20 @@
+<div>
+  <tabset>
+    <tab heading="{{ label | async }}">
+      <hotTable
+        [data]="data | async "
+        [colHeaders]="colHeaders"
+        [columns]="columns"
+        [options]="options"
+        (afterChange)="onAfterChange($event)">
+      </hotTable>
+    </tab>
+    <tab heading="Raw Data">
+      <ol>
+        <li *ngFor="let order of data | async " >
+          <code>{{order | json}}</code>
+        </li>
+      </ol>
+    </tab>
+  </tabset>
+</div>
