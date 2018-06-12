@@ -1,5 +1,6 @@
 syntax: glob
 .editorconfig
 .gitignore
+.git/
 .idea/
 node_modules/
