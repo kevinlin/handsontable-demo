@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import * as moment from 'moment';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 import { CarryOrder } from '../model/carry-order';
 import { VerticalOrder } from '../model/vertical-order';
-import * as moment from 'moment';
 
 type ICarryOrdersOperation = (carryOrders: CarryOrder[]) => CarryOrder[];
 
@@ -95,7 +96,7 @@ export class OrderService {
             verticalOrders.forEach((verticalOrder: VerticalOrder) => {
               const vOrdDate = moment(verticalOrder.date.getTime());
               const vOrdDateStr = vOrdDate.format('DD-MMM-YY');
-              if ( (changedOrder.prompt1 && changedOrder.prompt1 === vOrdDateStr)
+              if ((changedOrder.prompt1 && changedOrder.prompt1 === vOrdDateStr)
                 || (changedOrder.prompt2 && changedOrder.prompt2 === vOrdDateStr)
               ) {
                 verticalOrder.netQty = verticalOrder.qty + changedOrder.qty;
@@ -131,10 +132,10 @@ export class OrderService {
       this.month2Orders.next(orders.filter(order => order.date.getMonth() === 6));
       this.month3Orders.next(orders.filter(order => order.date.getMonth() === 7));
       this.month4Orders.next(orders.filter(order => order.date.getMonth() === 8));
-      this.month1Label.next(this.monthNames[5] + '- 17');
-      this.month2Label.next(this.monthNames[6] + '- 17');
-      this.month3Label.next(this.monthNames[7] + '- 17');
-      this.month4Label.next(this.monthNames[8] + '- 17');
+      this.month1Label.next(this.monthNames[5] + '- 18');
+      this.month2Label.next(this.monthNames[6] + '- 18');
+      this.month3Label.next(this.monthNames[7] + '- 18');
+      this.month4Label.next(this.monthNames[8] + '- 18');
     });
   }
 
@@ -173,6 +174,7 @@ export class OrderService {
         .toString(16)
         .substring(1);
     }
+
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
       s4() + '-' + s4() + s4() + s4();
   }
