@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
-import { OrderComponent } from './order/order.component';
-import { ResultComponent } from './result/result.component';
+import { OrderComponent } from './component/order/order.component';
+import { ResultComponent } from './component/result/result.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/order', pathMatch: 'full' },

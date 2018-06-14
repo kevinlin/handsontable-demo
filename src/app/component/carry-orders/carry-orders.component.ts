@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import * as Handsontable from 'handsontable-pro';
 import { Observable } from 'rxjs';
 
-import { CarryOrder } from '../model/carry-order';
-import { OrderService } from '../service/order.service';
+import { CarryOrder } from '../../model/carry-order';
+import { OrderService } from '../../service/order.service';
 
 interface Coordinates {
   col: number;

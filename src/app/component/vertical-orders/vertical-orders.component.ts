@@ -4,8 +4,8 @@ import * as Handsontable from 'handsontable-pro';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 
-import { VerticalOrder } from '../model/vertical-order';
-import { OrderService } from '../service/order.service';
+import { VerticalOrder } from '../../model/vertical-order';
+import { OrderService } from '../../service/order.service';
 
 @Component({
   selector: 'app-vertical-orders',

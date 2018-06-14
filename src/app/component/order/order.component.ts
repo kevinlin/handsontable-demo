@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { CarryOrder } from '../model/carry-order';
-import { VerticalOrder } from '../model/vertical-order';
-import { OrderService } from '../service/order.service';
+import { CarryOrder } from '../../model/carry-order';
+import { VerticalOrder } from '../../model/vertical-order';
+import { OrderService } from '../../service/order.service';
 
 @Component({
   selector: 'app-order',
