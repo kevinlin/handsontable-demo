@@ -1,14 +1,21 @@
 <div>
   <tabset>
     <tab heading="Carry Orders">
-      <hotTable
+      <hot-table
+        [licenseKey]="'c9105-d18ff-03054-a4326-4c635'"
         [data]="data | async"
         [colHeaders]="colHeaders"
         [columns]="columns"
-        [options]="options"
+        [height]="options.height"
+        [rowHeaders]="options.rowHeaders"
+        [stretchH]="options.stretchH"
+        [columnSorting]="options.columnSorting"
+        [contextMenu]="options.contextMenu"
+        [className]="options.className"
+        [readOnly]="options.readOnly"
         (afterChange)="onAfterChange($event)"
         (afterOnCellMouseDown)="onAfterOnCellMouseDown($event)">
-      </hotTable>
+      </hot-table>
     </tab>
     <tab heading="Raw Data">
       <ol>

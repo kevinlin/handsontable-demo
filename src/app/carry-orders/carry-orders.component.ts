@@ -1,10 +1,6 @@
-/* tslint:disable:no-any */
-import { Component, OnInit, ViewChild, Input, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-
-import { HotTable } from 'ng2-handsontable';
-import * as Handsontable from 'handsontable';
-import { TabsetComponent } from 'ngx-bootstrap';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import * as Handsontable from 'handsontable-pro';
+import { Observable } from 'rxjs';
 
 import { CarryOrder } from '../model/carry-order';
 import { OrderService } from '../service/order.service';
@@ -24,24 +20,21 @@ export class CarryOrdersComponent implements OnInit {
 
   @Input() data: Observable<CarryOrder[]>;
 
-  @ViewChild(HotTable) hotTableComponent;
-
   private carryOrders: CarryOrder[];
-  private colHeaders: string[];
-  private columns: any[];
-  private options: any;
+  colHeaders: string[];
+  columns: any[];
+  options: any;
 
   constructor(public orderService: OrderService) {
     this.colHeaders = ['', 'Metals', 'Side', 'Lot', 'Prompt1', 'Limit Prompt1', 'Prompt2', 'Limit Prompt2', `Break Period`, 'Val', 'Status', 'Submit',
       '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>'];
     this.columns = [
       { data: 'selected', type: 'checkbox' },
-      { data: 'instrument', type: 'dropdown', source: ['Ali', 'Copper', 'Lead', 'Nickle', 'Tin', 'Zinc']
-      },
-      { data: 'side', type: 'dropdown', source: ['Brw', 'Lend']
-      },
-      { data: 'qty', type: 'numeric', format: '0,0'},
-      { data: 'prompt1',
+      { data: 'instrument', type: 'dropdown', source: ['Ali', 'Copper', 'Lead', 'Nickle', 'Tin', 'Zinc'] },
+      { data: 'side', type: 'dropdown', source: ['Brw', 'Lend'] },
+      { data: 'qty', type: 'numeric', format: '0,0' },
+      {
+        data: 'prompt1',
         type: 'date',
         dateFormat: 'DD-MMM-YY',
         correctFormat: true,
@@ -51,13 +44,14 @@ export class CarryOrdersComponent implements OnInit {
           firstDay: 1,
           showWeekNumber: true,
           numberOfMonths: 3,
-          disableDayFn: function(date) {
+          disableDayFn: function (date) {
             // Disable Sunday and Saturday
             return date.getDay() === 0 || date.getDay() === 6;
           }
         }
       },
-      { data: 'limitPrompt1',
+      {
+        data: 'limitPrompt1',
         type: 'date',
         dateFormat: 'DD-MMM-YY',
         correctFormat: true,
@@ -67,13 +61,14 @@ export class CarryOrdersComponent implements OnInit {
           firstDay: 1,
           showWeekNumber: true,
           numberOfMonths: 3,
-          disableDayFn: function(date) {
+          disableDayFn: function (date) {
             // Disable Sunday and Saturday
             return date.getDay() === 0 || date.getDay() === 6;
           }
         }
       },
-      { data: 'prompt2',
+      {
+        data: 'prompt2',
         type: 'date',
         dateFormat: 'DD-MMM-YY',
         correctFormat: true,
@@ -83,13 +78,14 @@ export class CarryOrdersComponent implements OnInit {
           firstDay: 1,
           showWeekNumber: true,
           numberOfMonths: 3,
-          disableDayFn: function(date) {
+          disableDayFn: function (date) {
             // Disable Sunday and Saturday
             return date.getDay() === 0 || date.getDay() === 6;
           }
         }
       },
-      { data: 'limitPrompt2',
+      {
+        data: 'limitPrompt2',
         type: 'date',
         dateFormat: 'DD-MMM-YY',
         correctFormat: true,
@@ -99,15 +95,15 @@ export class CarryOrdersComponent implements OnInit {
           firstDay: 1,
           showWeekNumber: true,
           numberOfMonths: 3,
-          disableDayFn: function(date) {
+          disableDayFn: function (date) {
             // Disable Sunday and Saturday
             return date.getDay() === 0 || date.getDay() === 6;
           }
         }
       },
-      { data: 'breakPeriod', type: 'checkbox'},
-      { data: 'variation', readOnly: true},
-      { data: 'status', readOnly: true},
+      { data: 'breakPeriod', type: 'checkbox' },
+      { data: 'variation', readOnly: true },
+      { data: 'status', readOnly: true },
       { data: 'submitted', renderer: this.submittedRenderer },
       { readOnly: true, renderer: this.actionRenderer }
     ];
@@ -152,12 +148,13 @@ export class CarryOrdersComponent implements OnInit {
     console.log('CarryOrders.onAfterChange()->source:' + source + ', changes: ' + JSON.stringify(changes));
     if (source === 'edit') {
       changes.forEach((change) => {
-        const orderChanged: CarryOrder =  this.carryOrders[change[0]];
+        const orderChanged: CarryOrder = this.carryOrders[change[0]];
         console.log('CarryOrders.onAfterChange()->order changed: ' + JSON.stringify(orderChanged));
         this.orderService.updateCarryOrder(orderChanged);
       });
     }
   }
+
   onAfterOnCellMouseDown($event: any) {
     const coords: Coordinates = $event[1];
     console.log('CarryOrders.onAfterOnCellMouseDown()->Clicked on cell: [' + coords.row + ', ' + coords.col + ']');

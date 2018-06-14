@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { CarryOrder } from '../model/carry-order';
 import { VerticalOrder } from '../model/vertical-order';
@@ -15,15 +15,14 @@ export class OrderComponent implements OnInit {
   carryOrders: Observable<CarryOrder[]>;
   initialVerticalOrders: VerticalOrder[] = [];
 
-  private verticalOrders: Observable<VerticalOrder[]>;
-  private month1Orders: Observable<VerticalOrder[]>;
-  private month2Orders: Observable<VerticalOrder[]>;
-  private month3Orders: Observable<VerticalOrder[]>;
-  private month4Orders: Observable<VerticalOrder[]>;
-  private month1Label: Observable<string>;
-  private month2Label: Observable<string>;
-  private month3Label: Observable<string>;
-  private month4Label: Observable<string>;
+  month1Orders: Observable<VerticalOrder[]>;
+  month2Orders: Observable<VerticalOrder[]>;
+  month3Orders: Observable<VerticalOrder[]>;
+  month4Orders: Observable<VerticalOrder[]>;
+  month1Label: Observable<string>;
+  month2Label: Observable<string>;
+  month3Label: Observable<string>;
+  month4Label: Observable<string>;
 
   constructor(public orderService: OrderService) {
     this.carryOrders = this.orderService.carryOrders;

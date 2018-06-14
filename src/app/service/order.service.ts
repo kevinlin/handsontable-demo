@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import { Observable, Subject } from 'rxjs';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { map, publishReplay, refCount, scan } from 'rxjs/operators';
 
 import { CarryOrder } from '../model/carry-order';
 import { VerticalOrder } from '../model/vertical-order';
@@ -42,31 +42,32 @@ export class OrderService {
   public monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   constructor() {
-    this.carryOrders = this.carryOrderUpdates
+    this.carryOrders = this.carryOrderUpdates.pipe(
       // watch the carryOrderUpdates and accumulate operations on the carryOrders
-      .scan(
+      scan(
         (carryOrders: CarryOrder[], operation: ICarryOrdersOperation) => {
           return operation(carryOrders);
-        }, [])
+        }, []),
       // make sure we can share the most recent list of carryOrders across anyone who's interested in the last known list of carryOrders
-      .publishReplay(1)
-      .refCount();
+      publishReplay(1),
+      refCount()
+    );
     // `carryOrderToCreate` takes a CarryOrder and then puts an operation (the inner function) on the `carryOrderUpdates` stream to add the CarryOrder to carryOrders.
     // That is, for each item that gets added to `carryOrderToCreate` (by using `next`) this stream emits a concat operation function.
     //
     // Next we subscribe `this.carryOrderUpdates` to listen to this stream, which means that it will receive each operation that is created
-    this.carryOrderToCreate
-      .map(function(carryOrder: CarryOrder): ICarryOrdersOperation {
+    this.carryOrderToCreate.pipe(
+      map(function (carryOrder: CarryOrder): ICarryOrdersOperation {
         return (carryOrders: CarryOrder[]) => {
           return carryOrders.concat(carryOrder);
         };
-      })
+      }))
       .subscribe(this.carryOrderUpdates);
 
     this.newCarryOrder.subscribe(this.carryOrderToCreate);
 
-    this.changedCarryOrder
-      .map(
+    this.changedCarryOrder.pipe(
+      map(
         (changedOrder: CarryOrder) => {
           return (carryOrders: CarryOrder[]) => {
             for (let i = 0; i < carryOrders.length; i++) {
@@ -77,19 +78,20 @@ export class OrderService {
             return carryOrders;
           };
         }
-      )
+      ))
       .subscribe(this.carryOrderUpdates);
 
-    this.verticalOrders = this.verticalOrderUpdates
-      .scan(
+    this.verticalOrders = this.verticalOrderUpdates.pipe(
+      scan(
         (verticalOrders: VerticalOrder[], operation: IVerticalOrdersOperation) => {
           return operation(verticalOrders);
-        }, [])
-      .publishReplay(1)
-      .refCount();
+        }, []),
+      publishReplay(1),
+      refCount()
+    );
 
-    this.changedCarryOrder
-      .map(
+    this.changedCarryOrder.pipe(
+      map(
         (changedOrder: CarryOrder) => {
           return (verticalOrders: VerticalOrder[]) => {
             verticalOrders.forEach((verticalOrder: VerticalOrder) => {
@@ -105,11 +107,11 @@ export class OrderService {
             return verticalOrders;
           };
         }
-      )
+      ))
       .subscribe(this.verticalOrderUpdates);
 
-    this.changedVerticalOrder
-      .map(
+    this.changedVerticalOrder.pipe(
+      map(
         (changedOrder: VerticalOrder) => {
           return (verticalOrders: VerticalOrder[]) => {
             for (let i = 0; i < verticalOrders.length; i++) {
@@ -120,7 +122,7 @@ export class OrderService {
             return verticalOrders;
           };
         }
-      )
+      ))
       .subscribe(this.verticalOrderUpdates);
 
     this.verticalOrders.subscribe((orders: VerticalOrder[]) => {

@@ -1,10 +1,8 @@
-import { Component, OnInit, ViewChild, Input, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
-import { HotTable } from 'ng2-handsontable';
-import * as Handsontable from 'handsontable';
-import { TabsetComponent } from 'ngx-bootstrap';
+import * as Handsontable from 'handsontable-pro';
 import * as moment from 'moment';
+import { Observable } from 'rxjs';
 
 import { VerticalOrder } from '../model/vertical-order';
 import { OrderService } from '../service/order.service';
@@ -20,12 +18,10 @@ export class VerticalOrdersComponent implements OnInit {
   @Input() data: Observable<VerticalOrder[]>;
   @Input() label: Observable<string>;
 
-  @ViewChild(HotTable) hotTableComponent;
-
   private verticalOrders: VerticalOrder[];
-  private colHeaders: string[];
-  private columns: any[];
-  private options: any;
+  colHeaders: string[];
+  columns: any[];
+  options: any;
 
   constructor(public orderService: OrderService) {
     this.colHeaders = ['Day', 'Date', 'Enter Order', 'Net'];
