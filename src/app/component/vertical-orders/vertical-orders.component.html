@@ -2,17 +2,17 @@
   <tabset>
     <tab heading="{{ label | async }}">
       <hot-table
-        [licenseKey]="'c9105-d18ff-03054-a4326-4c635'"
-        [data]="data | async "
-        [colHeaders]="colHeaders"
-        [columns]="columns"
-        [rowHeaders]="options.rowHeaders"
-        [stretchH]="options.stretchH"
-        [columnSorting]="options.columnSorting"
-        [contextMenu]="options.contextMenu"
-        [className]="options.className"
-        [readOnly]="options.readOnly"
-        (afterChange)="onAfterChange($event)">
+              licenseKey="'c9105-d18ff-03054-a4326-4c635'"
+              [data]="data | async "
+              [colHeaders]="colHeaders"
+              [columns]="columns"
+              [rowHeaders]="options.rowHeaders"
+              [stretchH]="options.stretchH"
+              [columnSorting]="options.columnSorting"
+              [contextMenu]="options.contextMenu"
+              [className]="options.className"
+              [readOnly]="options.readOnly"
+              (afterChange)="onAfterChange">
       </hot-table>
     </tab>
     <tab heading="Raw Data">
