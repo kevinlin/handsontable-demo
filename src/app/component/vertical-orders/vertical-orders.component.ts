@@ -69,7 +69,7 @@ export class VerticalOrdersComponent implements OnInit {
         td.style.color = (value < 0) ? 'red' : 'green';
     }
 
-    onAfterChange = (source: any, changes: any) => {
+    onAfterChange = (hot: any, changes: any, source: any) => {
         console.log('VerticalOrders.onAfterChange()->', changes);
         if (source === 'edit') {
             changes.forEach((change) => {

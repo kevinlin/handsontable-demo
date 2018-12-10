@@ -6,11 +6,6 @@ import {CarryOrder} from '../../model/carry-order';
 import {OrderService} from '../../service/order.service';
 import CellCoords = Handsontable.wot.CellCoords;
 
-interface Coordinates {
-    col: number;
-    row: number;
-}
-
 @Component({
     selector: 'app-carry-orders',
     templateUrl: './carry-orders.component.html',
