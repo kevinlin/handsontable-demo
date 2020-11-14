@@ -23,7 +23,7 @@
     "@angular/router": "^6.0.5",
     "@handsontable/angular": "^2.0.0",
     "core-js": "^2.5.4",
-    "handsontable": "^5.0.0",
+    "handsontable": "^8.2.0",
     "moment": "^2.22.2",
     "ngx-bootstrap": "^3.0.0",
     "rxjs": "^6.2.1",
