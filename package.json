@@ -24,7 +24,7 @@
     "@handsontable/angular": "^2.0.0",
     "core-js": "^2.5.4",
     "handsontable": "^5.0.0",
-    "moment": "^2.22.2",
+    "moment": "^2.29.4",
     "ngx-bootstrap": "^3.0.0",
     "rxjs": "^6.2.1",
     "zone.js": "^0.8.26"
